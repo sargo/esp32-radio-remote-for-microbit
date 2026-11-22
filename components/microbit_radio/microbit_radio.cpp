@@ -1,6 +1,6 @@
-#ifdef USE_ESP32
-
 #include "microbit_radio.h"
+
+#ifdef USE_ESP32
 
 #include <atomic>
 #include <cstring>
