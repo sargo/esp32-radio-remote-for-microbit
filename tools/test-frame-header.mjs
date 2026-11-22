@@ -5,7 +5,7 @@
 import { readFileSync } from "node:fs";
 import { nrfReceive, parseMakeCode, toBits, whiteningSequence, xorBits } from "./microbit-radio-encoder.mjs";
 
-let src = readFileSync(new URL("./components/microbit_radio/microbit_frame.h", import.meta.url), "utf8");
+let src = readFileSync(new URL("../components/microbit_radio/microbit_frame.h", import.meta.url), "utf8");
 src = src.slice(src.indexOf("namespace frame {") + "namespace frame {".length, src.indexOf("}  // namespace frame"));
 
 const ARR = "(?:bits|inner|out|pdu|p|adv_bits)";

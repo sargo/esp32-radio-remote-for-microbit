@@ -33,9 +33,9 @@ Development tools, needed only when changing the frame encoder in `microbit_fram
 
 | File | What it is |
 |---|---|
-| `microbit-radio-encoder.mjs` | reference encoder and simulated nRF receiver (`node microbit-radio-encoder.mjs`) |
-| `test-frame-header.mjs` | checks the logic of `microbit_frame.h` without a C++ compiler (`node test-frame-header.mjs`) |
-| `gen-vectors.mjs` | generates the self-test vectors in `microbit_frame.h` |
+| `tools/microbit-radio-encoder.mjs` | reference encoder and simulated nRF receiver (`node tools/microbit-radio-encoder.mjs`) |
+| `tools/test-frame-header.mjs` | checks the logic of `microbit_frame.h` without a C++ compiler (`node tools/test-frame-header.mjs`) |
+| `tools/gen-vectors.mjs` | generates the self-test vectors in `microbit_frame.h` (`node tools/gen-vectors.mjs`) |
 
 ## Using it in ESPHome
 
@@ -94,6 +94,6 @@ id(mb_radio).set_group(3);           // applies to messages queued afterwards
 
 - Frame format: [codal-microbit-v2 `MicroBitRadio.cpp`](https://github.com/lancaster-university/codal-microbit-v2/blob/master/source/MicroBitRadio.cpp)
   and [pxt-common-packages `radio.ts`](https://github.com/microsoft/pxt-common-packages/blob/master/libs/radio/radio.ts).
-- The simulated receiver in `microbit-radio-encoder.mjs` uses a whitening function ported from the
+- The simulated receiver in `tools/microbit-radio-encoder.mjs` uses a whitening function ported from the
   ESPeranto library ([woot2023_espwn32_artifacts](https://github.com/RCayre/woot2023_espwn32_artifacts),
   MIT license, © 2023 Romain Cayre, Damien Cauquil, Aurélien Francillon).

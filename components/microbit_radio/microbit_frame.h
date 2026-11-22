@@ -10,7 +10,7 @@
 // whitens it for the advertising channel, so it is pre-whitened here; on air the
 // AdvData field then reads: 0xAA, "tibu", group, micro:bit-whitened frame, CRC.
 //
-// Reference implementation and test vectors: microbit-radio-encoder.mjs.
+// Reference implementation: tools/microbit-radio-encoder.mjs; test vectors: tools/gen-vectors.mjs.
 // No ESPHome dependencies, so it can be unit-tested on a PC.
 
 #include <cstddef>
@@ -164,7 +164,7 @@ inline bool build_adv_data(uint8_t group, const uint8_t *makecode, size_t makeco
   return true;
 }
 
-// ---- Self-test against vectors from microbit-radio-encoder.mjs (time = serial = 0).
+// ---- Self-test against vectors from tools/gen-vectors.mjs (time = serial = 0).
 // Returns the index of the first failing vector + 1, or 0 if all pass.
 inline int self_test() {
   static const uint8_t expected[4][ADV_DATA_LEN] = {
