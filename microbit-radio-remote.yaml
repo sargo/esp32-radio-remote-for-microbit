@@ -67,7 +67,7 @@ interval:
           }
 
 # Buttons -> radio.onReceivedValue(name, 1 = pressed / 0 = released)
-# Layout and wiring: docs/budowa.md
+# Layout and wiring: docs/build.md
 binary_sensor:
   - platform: gpio
     name: "Button A (red, right)"

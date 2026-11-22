@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1000 620" width="1000" height="620" font-family="Arial, Helvetica, sans-serif" font-size="14">
-  <title>Pilot ESP32 dla micro:bit – schemat</title>
+  <title>ESP32 remote for micro:bit – schematic</title>
   <defs>
     <!-- ground symbol, origin = connection point -->
     <g id="gnd" stroke="#000" stroke-width="2" fill="none">
@@ -19,7 +19,7 @@
   </defs>
 
   <rect x="0" y="0" width="1000" height="620" fill="#fff"/>
-  <text x="20" y="32" font-size="19" font-weight="bold">Pilot ESP32 dla micro:bit – schemat połączeń</text>
+  <text x="20" y="32" font-size="19" font-weight="bold">ESP32 remote for micro:bit – wiring schematic</text>
 
   <g stroke="#000" stroke-width="2" fill="none">
     <!-- U1 -->
@@ -115,8 +115,8 @@
   <!-- U1 labels -->
   <text x="500" y="88" text-anchor="middle" font-weight="bold">U1  WEMOS LOLIN32 Lite</text>
   <text x="500" y="106" text-anchor="middle">(ESP32)</text>
-  <text x="500" y="124" text-anchor="middle" font-size="11" fill="#555">ładowarka LiPo i LDO 3,3 V na płytce</text>
-  <text x="410" y="152" font-size="11" fill="#555">gniazdo JST PH 2.0</text>
+  <text x="500" y="124" text-anchor="middle" font-size="11" fill="#555">LiPo charger and 3.3 V LDO on board</text>
+  <text x="410" y="152" font-size="11" fill="#555">JST PH 2.0 socket</text>
   <text x="410" y="175">BAT +</text>
   <text x="410" y="215">BAT −</text>
   <text x="410" y="335">GPIO32</text>
@@ -128,37 +128,37 @@
   <text x="590" y="355" text-anchor="end">GPIO17</text>
   <text x="590" y="415" text-anchor="end">GPIO18</text>
   <text x="590" y="475" text-anchor="end">GPIO4</text>
-  <text x="500" y="548" text-anchor="middle" font-size="11" fill="#555">dioda LED stanu: GPIO22 (na płytce)</text>
+  <text x="500" y="548" text-anchor="middle" font-size="11" fill="#555">status LED: GPIO22 (on board)</text>
 
   <!-- power labels -->
   <text x="116" y="203" font-size="13">+</text>
-  <text x="40" y="300">BT1: 2× AA (LR6), ok. 3 V</text>
-  <text x="40" y="317" font-size="11" fill="#555">koszyk na spodzie płytki</text>
+  <text x="40" y="300">BT1: 2× AA (LR6), about 3 V</text>
+  <text x="40" y="317" font-size="11" fill="#555">holder on the back of the board</text>
   <text x="215" y="150" text-anchor="middle">SW1</text>
   <text x="258" y="205" font-size="11" fill="#555">n/c</text>
-  <text x="215" y="236" text-anchor="middle" font-size="11" fill="#b00000">wyłącz przed USB!</text>
-  <text x="300" y="162" text-anchor="middle" font-size="11" fill="#555">wtyk JST PH 2.0</text>
+  <text x="215" y="236" text-anchor="middle" font-size="11" fill="#b00000">turn off before USB!</text>
+  <text x="300" y="162" text-anchor="middle" font-size="11" fill="#555">JST PH 2.0 plug</text>
 
   <!-- joystick labels -->
   <text x="155" y="378" text-anchor="middle" font-weight="bold">J1  joystick</text>
-  <text x="155" y="396" text-anchor="middle" font-size="12">moduł KY-023 (IDUINO)</text>
+  <text x="155" y="396" text-anchor="middle" font-size="12">KY-023 module (IDUINO)</text>
   <text x="232" y="425" text-anchor="end">VRx</text>
   <text x="232" y="455" text-anchor="end">VRy</text>
   <text x="232" y="485" text-anchor="end">SW</text>
   <text x="232" y="515" text-anchor="end">+5V</text>
   <text x="232" y="545" text-anchor="end">GND</text>
-  <text x="155" y="582" text-anchor="middle" font-size="11" fill="#555">zasilany z 3,3 V (pin +5V modułu)</text>
+  <text x="155" y="582" text-anchor="middle" font-size="11" fill="#555">powered from 3.3 V (module pin +5V)</text>
 
   <!-- net flag labels -->
   <text x="693" y="175" text-anchor="middle" font-size="12" font-weight="bold">3V3</text>
   <text x="323" y="515" text-anchor="middle" font-size="12" font-weight="bold">3V3</text>
 
   <!-- button labels -->
-  <text x="830" y="295">S1  X  (niebieski, góra)</text>
-  <text x="830" y="355">S2  Y  (zielony, lewo)</text>
-  <text x="830" y="415">S3  A  (czerwony, prawo)</text>
-  <text x="830" y="475">S4  B  (biały, dół)</text>
-  <text x="660" y="530" font-size="12">S1–S4: przyciski 12×12 mm do masy,</text>
-  <text x="660" y="547" font-size="12">podciąganie wewnętrzne ESP32 (INPUT_PULLUP),</text>
-  <text x="660" y="564" font-size="12">bez rezystorów. Wszystkie GND łączą się z pinem G.</text>
+  <text x="830" y="295">S1  X  (blue, top)</text>
+  <text x="830" y="355">S2  Y  (green, left)</text>
+  <text x="830" y="415">S3  A  (red, right)</text>
+  <text x="830" y="475">S4  B  (white, bottom)</text>
+  <text x="660" y="530" font-size="12">S1–S4: 12×12 mm buttons to ground,</text>
+  <text x="660" y="547" font-size="12">ESP32 internal pull-ups (INPUT_PULLUP),</text>
+  <text x="660" y="564" font-size="12">no resistors. All grounds go to pin G.</text>
 </svg>
