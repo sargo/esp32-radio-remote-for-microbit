@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1000 620" width="1000" height="620" font-family="Arial, Helvetica, sans-serif" font-size="14">
+  <title>Pilot ESP32 dla micro:bit – schemat</title>
+  <defs>
+    <!-- ground symbol, origin = connection point -->
+    <g id="gnd" stroke="#000" stroke-width="2" fill="none">
+      <line x1="0" y1="0" x2="0" y2="12"/>
+      <line x1="-11" y1="12" x2="11" y2="12"/>
+      <line x1="-7" y1="17" x2="7" y2="17"/>
+      <line x1="-3" y1="22" x2="3" y2="22"/>
+    </g>
+    <!-- push button, origin = left contact, right contact at x=50 -->
+    <g id="button" stroke="#000" stroke-width="2" fill="none">
+      <circle cx="0" cy="0" r="3" fill="#fff"/>
+      <circle cx="50" cy="0" r="3" fill="#fff"/>
+      <line x1="-2" y1="-10" x2="52" y2="-10"/>
+      <line x1="25" y1="-10" x2="25" y2="-20"/>
+      <line x1="17" y1="-20" x2="33" y2="-20"/>
+    </g>
+  </defs>
+
+  <rect x="0" y="0" width="1000" height="620" fill="#fff"/>
+  <text x="20" y="32" font-size="19" font-weight="bold">Pilot ESP32 dla micro:bit – schemat połączeń</text>
+
+  <g stroke="#000" stroke-width="2" fill="none">
+    <!-- U1 -->
+    <rect x="400" y="60" width="200" height="500" fill="#f4f4f4"/>
+    <!-- U1 left pin stubs -->
+    <line x1="360" y1="170" x2="400" y2="170"/>
+    <line x1="360" y1="210" x2="400" y2="210"/>
+    <line x1="360" y1="330" x2="400" y2="330"/>
+    <line x1="360" y1="370" x2="400" y2="370"/>
+    <line x1="360" y1="410" x2="400" y2="410"/>
+    <line x1="360" y1="520" x2="400" y2="520"/>
+    <!-- U1 right pin stubs -->
+    <line x1="600" y1="170" x2="640" y2="170"/>
+    <line x1="600" y1="290" x2="640" y2="290"/>
+    <line x1="600" y1="350" x2="640" y2="350"/>
+    <line x1="600" y1="410" x2="640" y2="410"/>
+    <line x1="600" y1="470" x2="640" y2="470"/>
+
+    <!-- battery BT1 (2 cells), + on top -->
+    <line x1="90" y1="185" x2="90" y2="205"/>
+    <line x1="70" y1="205" x2="110" y2="205"/>
+    <line x1="80" y1="213" x2="100" y2="213" stroke-width="4"/>
+    <line x1="90" y1="213" x2="90" y2="231"/>
+    <line x1="70" y1="231" x2="110" y2="231"/>
+    <line x1="80" y1="239" x2="100" y2="239" stroke-width="4"/>
+    <line x1="90" y1="239" x2="90" y2="270"/>
+    <!-- BT1 + to SW1 common -->
+    <line x1="90" y1="185" x2="177" y2="185"/>
+    <!-- SW1 (SPDT) -->
+    <circle cx="180" cy="185" r="3" fill="#fff"/>
+    <circle cx="250" cy="170" r="3" fill="#fff"/>
+    <circle cx="250" cy="200" r="3" fill="#fff"/>
+    <line x1="182" y1="184" x2="246" y2="171"/>
+    <!-- SW1 to BAT+ -->
+    <line x1="253" y1="170" x2="360" y2="170"/>
+    <!-- BT1 - to BAT- -->
+    <polyline points="90,270 330,270 330,210 360,210"/>
+
+    <!-- J1 joystick -->
+    <rect x="70" y="350" width="170" height="210" fill="#f4f4f4"/>
+    <line x1="240" y1="420" x2="280" y2="420"/>
+    <line x1="240" y1="450" x2="280" y2="450"/>
+    <line x1="240" y1="480" x2="280" y2="480"/>
+    <line x1="240" y1="510" x2="280" y2="510"/>
+    <line x1="240" y1="540" x2="280" y2="540"/>
+    <!-- joystick signals to U1 -->
+    <polyline points="280,420 310,420 310,330 360,330"/>
+    <polyline points="280,450 325,450 325,370 360,370"/>
+    <polyline points="280,480 340,480 340,410 360,410"/>
+    <!-- joystick VCC to 3V3 net label -->
+    <line x1="280" y1="510" x2="300" y2="510"/>
+    <!-- joystick GND -->
+    <line x1="280" y1="540" x2="300" y2="540"/>
+
+    <!-- U1 3V3 net label -->
+    <line x1="640" y1="170" x2="670" y2="170"/>
+
+    <!-- buttons: U1 pin -> button -> GND -->
+    <line x1="640" y1="290" x2="697" y2="290"/>
+    <line x1="753" y1="290" x2="790" y2="290"/>
+    <line x1="640" y1="350" x2="697" y2="350"/>
+    <line x1="753" y1="350" x2="790" y2="350"/>
+    <line x1="640" y1="410" x2="697" y2="410"/>
+    <line x1="753" y1="410" x2="790" y2="410"/>
+    <line x1="640" y1="470" x2="697" y2="470"/>
+    <line x1="753" y1="470" x2="790" y2="470"/>
+
+    <!-- 3V3 net flags -->
+    <polygon points="670,160 712,160 722,170 712,180 670,180" fill="#fff"/>
+    <polygon points="300,500 342,500 352,510 342,520 300,520" fill="#fff"/>
+  </g>
+
+  <!-- ground symbols -->
+  <use xlink:href="#gnd" href="#gnd" transform="translate(360,520)"/>
+  <use xlink:href="#gnd" href="#gnd" transform="translate(300,540)"/>
+  <use xlink:href="#gnd" href="#gnd" transform="translate(790,290)"/>
+  <use xlink:href="#gnd" href="#gnd" transform="translate(790,350)"/>
+  <use xlink:href="#gnd" href="#gnd" transform="translate(790,410)"/>
+  <use xlink:href="#gnd" href="#gnd" transform="translate(790,470)"/>
+
+  <!-- buttons -->
+  <use xlink:href="#button" href="#button" transform="translate(700,290)"/>
+  <use xlink:href="#button" href="#button" transform="translate(700,350)"/>
+  <use xlink:href="#button" href="#button" transform="translate(700,410)"/>
+  <use xlink:href="#button" href="#button" transform="translate(700,470)"/>
+
+  <!-- junction / connection dots -->
+  <g fill="#000">
+    <circle cx="360" cy="170" r="2.5"/>
+    <circle cx="360" cy="210" r="2.5"/>
+  </g>
+
+  <!-- U1 labels -->
+  <text x="500" y="88" text-anchor="middle" font-weight="bold">U1  WEMOS LOLIN32 Lite</text>
+  <text x="500" y="106" text-anchor="middle">(ESP32)</text>
+  <text x="500" y="124" text-anchor="middle" font-size="11" fill="#555">ładowarka LiPo i LDO 3,3 V na płytce</text>
+  <text x="410" y="152" font-size="11" fill="#555">gniazdo JST PH 2.0</text>
+  <text x="410" y="175">BAT +</text>
+  <text x="410" y="215">BAT −</text>
+  <text x="410" y="335">GPIO32</text>
+  <text x="410" y="375">GPIO33</text>
+  <text x="410" y="415">GPIO25</text>
+  <text x="410" y="525">G (GND)</text>
+  <text x="590" y="175" text-anchor="end">3V</text>
+  <text x="590" y="295" text-anchor="end">GPIO19</text>
+  <text x="590" y="355" text-anchor="end">GPIO17</text>
+  <text x="590" y="415" text-anchor="end">GPIO18</text>
+  <text x="590" y="475" text-anchor="end">GPIO4</text>
+  <text x="500" y="548" text-anchor="middle" font-size="11" fill="#555">dioda LED stanu: GPIO22 (na płytce)</text>
+
+  <!-- power labels -->
+  <text x="116" y="203" font-size="13">+</text>
+  <text x="40" y="300">BT1: 2× AA (LR6), ok. 3 V</text>
+  <text x="40" y="317" font-size="11" fill="#555">koszyk na spodzie płytki</text>
+  <text x="215" y="150" text-anchor="middle">SW1</text>
+  <text x="258" y="205" font-size="11" fill="#555">n/c</text>
+  <text x="215" y="236" text-anchor="middle" font-size="11" fill="#b00000">wyłącz przed USB!</text>
+  <text x="300" y="162" text-anchor="middle" font-size="11" fill="#555">wtyk JST PH 2.0</text>
+
+  <!-- joystick labels -->
+  <text x="155" y="378" text-anchor="middle" font-weight="bold">J1  joystick</text>
+  <text x="155" y="396" text-anchor="middle" font-size="12">moduł KY-023 (IDUINO)</text>
+  <text x="232" y="425" text-anchor="end">VRx</text>
+  <text x="232" y="455" text-anchor="end">VRy</text>
+  <text x="232" y="485" text-anchor="end">SW</text>
+  <text x="232" y="515" text-anchor="end">+5V</text>
+  <text x="232" y="545" text-anchor="end">GND</text>
+  <text x="155" y="582" text-anchor="middle" font-size="11" fill="#555">zasilany z 3,3 V (pin +5V modułu)</text>
+
+  <!-- net flag labels -->
+  <text x="693" y="175" text-anchor="middle" font-size="12" font-weight="bold">3V3</text>
+  <text x="323" y="515" text-anchor="middle" font-size="12" font-weight="bold">3V3</text>
+
+  <!-- button labels -->
+  <text x="830" y="295">S1  X  (niebieski, góra)</text>
+  <text x="830" y="355">S2  Y  (zielony, lewo)</text>
+  <text x="830" y="415">S3  A  (czerwony, prawo)</text>
+  <text x="830" y="475">S4  B  (biały, dół)</text>
+  <text x="660" y="530" font-size="12">S1–S4: przyciski 12×12 mm do masy,</text>
+  <text x="660" y="547" font-size="12">podciąganie wewnętrzne ESP32 (INPUT_PULLUP),</text>
+  <text x="660" y="564" font-size="12">bez rezystorów. Wszystkie GND łączą się z pinem G.</text>
+</svg>

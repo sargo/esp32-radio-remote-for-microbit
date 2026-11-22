@@ -67,30 +67,31 @@ interval:
           }
 
 # Buttons -> radio.onReceivedValue(name, 1 = pressed / 0 = released)
+# Layout and wiring: docs/budowa.md
 binary_sensor:
   - platform: gpio
-    name: "Button A"
+    name: "Button A (red, right)"
     pin: { number: GPIO18, inverted: true, mode: INPUT_PULLUP }
     filters: [delayed_on: 10ms, delayed_off: 10ms]
     on_press: [lambda: 'id(mb_radio).send_value("A", 1);']
     on_release: [lambda: 'id(mb_radio).send_value("A", 0);']
 
   - platform: gpio
-    name: "Button B"
+    name: "Button B (white, bottom)"
     pin: { number: GPIO4, inverted: true, mode: INPUT_PULLUP }
     filters: [delayed_on: 10ms, delayed_off: 10ms]
     on_press: [lambda: 'id(mb_radio).send_value("B", 1);']
     on_release: [lambda: 'id(mb_radio).send_value("B", 0);']
 
   - platform: gpio
-    name: "Button X"
+    name: "Button X (blue, top)"
     pin: { number: GPIO19, inverted: true, mode: INPUT_PULLUP }
     filters: [delayed_on: 10ms, delayed_off: 10ms]
     on_press: [lambda: 'id(mb_radio).send_value("X", 1);']
     on_release: [lambda: 'id(mb_radio).send_value("X", 0);']
 
   - platform: gpio
-    name: "Button Y"
+    name: "Button Y (green, left)"
     pin: { number: GPIO17, inverted: true, mode: INPUT_PULLUP }
     filters: [delayed_on: 10ms, delayed_off: 10ms]
     on_press: [lambda: 'id(mb_radio).send_value("Y", 1);']

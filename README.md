@@ -11,12 +11,22 @@ przez VHCI, bez stosu Bluedroid/NimBLE.
 Jedyna różnica dla ucznia: oprócz `radio.setGroup()` potrzebny jest blok
 `radio.setFrequencyBand(2)` (Radio → więcej).
 
+![Pilot](docs/img/pilot-przod.jpg)
+
+## Sprzęt
+
+WEMOS LOLIN32 Lite, joystick KY-023, cztery przyciski 12×12 mm i dwie baterie AA na płytce uniwersalnej.
+Zdjęcia, lista zakupów, schemat i tabela połączeń są w [docs/budowa.md](docs/budowa.md).
+
+![Schemat połączeń](docs/schemat.svg)
+
 ## Pliki
 
 | Plik | Co to jest |
 |---|---|
 | `components/microbit_radio/` | komponent zewnętrzny ESPHome |
 | `microbit-radio-remote.yaml` | firmware testowy (piny jak w `bt-microbit-remote.yaml`) |
+| `docs/` | budowa pilota: zdjęcia, lista zakupów, schemat |
 | `makecode-test.ts` | program testowy dla micro:bita (tylko wbudowane bloki) |
 | `microbit-radio-encoder.mjs` | koder referencyjny i symulowany odbiornik nRF (`node microbit-radio-encoder.mjs`) |
 | `test-frame-header.mjs` | sprawdza logikę `microbit_frame.h` bez kompilatora C++ (`node test-frame-header.mjs`) |
