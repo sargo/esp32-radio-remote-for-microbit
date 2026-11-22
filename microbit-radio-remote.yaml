@@ -1,0 +1,150 @@
+# Test firmware: ESP32 remote -> micro:bit over the micro:bit radio protocol,
+# without Bluetooth pairing. Same pins as bt-microbit-remote.yaml.
+#
+# micro:bit side (built-in blocks only): makecode-test.ts
+#   radio.setGroup(1)
+#   radio.setFrequencyBand(2)
+#
+# Build & flash:  esphome run microbit-radio-remote.yaml
+
+substitutions:
+  radio_group: "1"
+
+esphome:
+  name: microbit-radio-remote
+  friendly_name: "micro:bit radio remote"
+
+esp32:
+  board: lolin32_lite
+  framework:
+    type: esp-idf
+
+external_components:
+  - source: github://sargo/esp32-radio-remote-for-microbit@main
+    components: [microbit_radio]
+    refresh: 0s # always fetch the latest version while testing
+  # Local copy instead (components/ next to this file):
+  # - source: { type: local, path: components }
+  #   components: [microbit_radio]
+
+logger:
+  level: DEBUG
+
+microbit_radio:
+  id: mb_radio
+  group: ${radio_group}
+  ble_channel: 37 # micro:bit: radio.setFrequencyBand(2); 38 -> 26, 39 -> 80
+  interval: 100ms
+  repeat: 1 # copies of each message the micro:bit receives
+
+output:
+  - platform: gpio
+    id: status_led
+    pin:
+      number: GPIO22
+      inverted: true
+
+globals:
+  - id: heartbeat
+    type: int
+    initial_value: "0"
+
+interval:
+  # Test signal: 0, 1, ... 9 every 2 s -> radio.onReceivedNumber
+  - interval: 2s
+    then:
+      - lambda: |-
+          id(mb_radio).send_number(id(heartbeat));
+          id(heartbeat) = (id(heartbeat) + 1) % 10;
+  # LED on = radio ready
+  - interval: 1s
+    then:
+      - lambda: |-
+          if (id(mb_radio).is_ready()) {
+            id(status_led).turn_on();
+          } else {
+            id(status_led).turn_off();
+          }
+
+# Buttons -> radio.onReceivedValue(name, 1 = pressed / 0 = released)
+binary_sensor:
+  - platform: gpio
+    name: "Button A"
+    pin: { number: GPIO18, inverted: true, mode: INPUT_PULLUP }
+    filters: [delayed_on: 10ms, delayed_off: 10ms]
+    on_press: [lambda: 'id(mb_radio).send_value("A", 1);']
+    on_release: [lambda: 'id(mb_radio).send_value("A", 0);']
+
+  - platform: gpio
+    name: "Button B"
+    pin: { number: GPIO4, inverted: true, mode: INPUT_PULLUP }
+    filters: [delayed_on: 10ms, delayed_off: 10ms]
+    on_press: [lambda: 'id(mb_radio).send_value("B", 1);']
+    on_release: [lambda: 'id(mb_radio).send_value("B", 0);']
+
+  - platform: gpio
+    name: "Button X"
+    pin: { number: GPIO19, inverted: true, mode: INPUT_PULLUP }
+    filters: [delayed_on: 10ms, delayed_off: 10ms]
+    on_press: [lambda: 'id(mb_radio).send_value("X", 1);']
+    on_release: [lambda: 'id(mb_radio).send_value("X", 0);']
+
+  - platform: gpio
+    name: "Button Y"
+    pin: { number: GPIO17, inverted: true, mode: INPUT_PULLUP }
+    filters: [delayed_on: 10ms, delayed_off: 10ms]
+    on_press: [lambda: 'id(mb_radio).send_value("Y", 1);']
+    on_release: [lambda: 'id(mb_radio).send_value("Y", 0);']
+
+  - platform: gpio
+    name: "Joystick click"
+    pin: { number: GPIO25, inverted: true, mode: INPUT_PULLUP }
+    filters: [delayed_on: 10ms, delayed_off: 10ms]
+    on_press: [lambda: 'id(mb_radio).send_value("C", 1);']
+    on_release: [lambda: 'id(mb_radio).send_value("C", 0);']
+
+  # Joystick directions (thresholds from bt-microbit-remote.yaml)
+  - platform: analog_threshold
+    name: "Joystick N"
+    sensor_id: joystick_x
+    threshold: 2.5
+    on_press: [lambda: 'id(mb_radio).send_value("N", 1);']
+    on_release: [lambda: 'id(mb_radio).send_value("N", 0);']
+
+  - platform: analog_threshold
+    name: "Joystick S"
+    sensor_id: joystick_x
+    threshold: 0.8
+    filters: [invert:]
+    on_press: [lambda: 'id(mb_radio).send_value("S", 1);']
+    on_release: [lambda: 'id(mb_radio).send_value("S", 0);']
+
+  - platform: analog_threshold
+    name: "Joystick E"
+    sensor_id: joystick_y
+    threshold: 2.5
+    on_press: [lambda: 'id(mb_radio).send_value("E", 1);']
+    on_release: [lambda: 'id(mb_radio).send_value("E", 0);']
+
+  - platform: analog_threshold
+    name: "Joystick W"
+    sensor_id: joystick_y
+    threshold: 0.8
+    filters: [invert:]
+    on_press: [lambda: 'id(mb_radio).send_value("W", 1);']
+    on_release: [lambda: 'id(mb_radio).send_value("W", 0);']
+
+sensor:
+  - platform: adc
+    id: joystick_x
+    pin: GPIO32
+    internal: true
+    attenuation: 12db
+    update_interval: 100ms
+
+  - platform: adc
+    id: joystick_y
+    pin: GPIO33
+    internal: true
+    attenuation: 12db
+    update_interval: 100ms
