@@ -1,7 +1,7 @@
-# Test firmware: ESP32 remote -> micro:bit over the micro:bit radio protocol,
-# without Bluetooth pairing. Same pins as bt-microbit-remote.yaml.
+# ESP32 remote for the micro:bit, speaking the micro:bit radio protocol
+# (no Bluetooth pairing). Hardware and wiring: docs/build.md
 #
-# micro:bit side (built-in blocks only): makecode-test.ts
+# micro:bit side, built-in Radio blocks only (see makecode-example.ts):
 #   radio.setGroup(1)
 #   radio.setFrequencyBand(2)
 #
@@ -16,19 +16,23 @@ esphome:
 
 esp32:
   board: lolin32_lite
+  cpu_frequency: 80MHZ # lower current draw on battery power
   framework:
     type: esp-idf
+    sdkconfig_options:
+      # Two AA cells (~3 V) sag during RF calibration at boot and trigger a
+      # brownout reset. After such a reset, start the radio at reduced TX power
+      # so the next boot succeeds (about 3 s instead of 20-30 s).
+      CONFIG_ESP_PHY_REDUCE_TX_POWER: "y"
 
 external_components:
   - source: github://sargo/esp32-radio-remote-for-microbit@main
     components: [microbit_radio]
-    refresh: 0s # always fetch the latest version while testing
   # Local copy instead (components/ next to this file):
   # - source: { type: local, path: components }
   #   components: [microbit_radio]
 
 logger:
-  level: DEBUG
 
 microbit_radio:
   id: mb_radio
@@ -44,19 +48,8 @@ output:
       number: GPIO22
       inverted: true
 
-globals:
-  - id: heartbeat
-    type: int
-    initial_value: "0"
-
+# Onboard LED on = radio ready
 interval:
-  # Test signal: 0, 1, ... 9 every 2 s -> radio.onReceivedNumber
-  - interval: 2s
-    then:
-      - lambda: |-
-          id(mb_radio).send_number(id(heartbeat));
-          id(heartbeat) = (id(heartbeat) + 1) % 10;
-  # LED on = radio ready
   - interval: 1s
     then:
       - lambda: |-
@@ -66,8 +59,7 @@ interval:
             id(status_led).turn_off();
           }
 
-# Buttons -> radio.onReceivedValue(name, 1 = pressed / 0 = released)
-# Layout and wiring: docs/build.md
+# Buttons and joystick -> radio.onReceivedValue(name, 1 = pressed / 0 = released)
 binary_sensor:
   - platform: gpio
     name: "Button A (red, right)"
@@ -104,7 +96,7 @@ binary_sensor:
     on_press: [lambda: 'id(mb_radio).send_value("C", 1);']
     on_release: [lambda: 'id(mb_radio).send_value("C", 0);']
 
-  # Joystick directions (thresholds from bt-microbit-remote.yaml)
+  # Joystick directions (voltage thresholds on the two axes)
   - platform: analog_threshold
     name: "Joystick N"
     sensor_id: joystick_x

@@ -63,8 +63,10 @@ The button layout matches Nintendo controllers: X on top, Y on the left, A on th
 
 - The JST plug from the battery holder goes into the LOLIN32 Lite battery socket. Switch SW1 breaks the positive lead.
 - **Turn SW1 off before plugging in USB.** The LOLIN32 Lite has a LiPo charger on its battery socket. With SW1 on and USB connected, it would try to charge the alkaline batteries, which can then heat up or leak.
-- Two AA batteries give about 3 V. That is close to the lower limit for the ESP32, so the board starts resetting as the batteries run down.
-- A 3.7 V LiPo battery with a JST PH 2.0 plug is the better option. It charges from USB, and SW1 can stay on.
+- Two AA batteries give about 3 V, close to the lower limit for the ESP32. At boot, RF calibration draws a few hundred mA, the voltage sags and the brownout detector resets the chip. Without countermeasures this repeats for 20–30 s before a boot succeeds.
+- [`microbit-radio-remote.yaml`](../microbit-radio-remote.yaml) therefore sets `cpu_frequency: 80MHZ` and `CONFIG_ESP_PHY_REDUCE_TX_POWER`. After a brownout reset the radio starts at reduced TX power, and the remote is ready in about 3 s. The range is shorter in that case.
+- A 470–1000 µF electrolytic capacitor between 3V and G (negative lead to G) helps the batteries with those current peaks.
+- A 3.7 V LiPo battery with a JST PH 2.0 plug is the best option. It charges from USB, the brownout resets do not happen, and SW1 can stay on.
 - JST PH plugs come with either polarity. Before connecting, check that the positive lead goes to the pin marked "+" on the LOLIN32 Lite.
 
 ## Assembly notes
